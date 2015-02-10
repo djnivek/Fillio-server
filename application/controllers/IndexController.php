@@ -14,8 +14,7 @@
 class IndexController extends Fillio_ServerLogic_Action {
 
     public function _requiredLibrary() {
-        //$this->setLibrary("trackr", "formater");
-        //$this->setLibrary("location", "distance");
+        //$this->setLibrary("notification");
     }
 
     public function init() {
@@ -24,9 +23,9 @@ class IndexController extends Fillio_ServerLogic_Action {
 
     public function indexAction() {
         $this->setRenderView(true);
-        $this->view->Header = "Bonjour le monde !";
-        $this->view->Body = "Tu crois que ça marche ?";
-        $this->view->test = $this->render("menu", array("menu" => "Commande", "pathMenu" => "/path/menu/index"));
+        $this->view->Title = "Ma page";
+        $this->view->message = "Bonjour";
+        //$this->view->test = $this->render("menu", array("menu" => "Commande", "pathMenu" => "/path/menu/index"));
     }
 
     public function bisousAction() {

@@ -49,7 +49,6 @@ class Fillio_ServerLogic_Library {
     }
 
     public static function loadLibrary($name = null, $module = null, $controller = null) {
-        die("fdfs");
         self::_getInstance()->_name = $name;
         self::_getInstance()->_module = $module;
         self::_getInstance()->_controller = $controller;

@@ -21,7 +21,6 @@ class Fillio {
         Fillio_ServerLogic_Library::loadLibrary("fillio", "server-logic");
         Fillio_ServerLogic_Library::loadLibrary("fillio", "route", "route");
         Fillio_ServerLogic_Library::loadLibrary("fillio", "storage");
-        die("fudfdsfdhsfiudshfjdkshk");
         return Fillio_ServerLogic_Application::getInstance();
     }
     

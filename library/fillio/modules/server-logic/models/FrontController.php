@@ -33,6 +33,7 @@ class Fillio_ServerLogic_FrontController {
     public function execute() {
         $this->loadFiles();
         $this->dispatch();
+
         if ($this->controller->isRenderViewEnabled())
             return $this->controller->getView();
         else
@@ -66,17 +67,17 @@ class Fillio_ServerLogic_FrontController {
             if (method_exists($this->controller, $method)) {
                 $this->controller->$method();
             } else {
-                throw new Fillio_ServerLogic_Exception("L'action demandée n'existe pas !");
+                throw new Fillio_ServerLogic_Exception("L'action demandï¿½e n'existe pas !");
             }
         } else {
-            throw new Fillio_ServerLogic_Exception("Le controlleur demandé n'existe pas !");
+            throw new Fillio_ServerLogic_Exception("Le controlleur demandï¿½ n'existe pas !");
         }
     }
 
     private function loadFiles() {
         $controllerPath = APPLICATION_PATH;
         
-        // * /!\ * Si le module est ? défault, on ne va pas dans l'arborescence puisque le défault est ? la racine
+        // * /!\ * Si le module est ? dï¿½fault, on ne va pas dans l'arborescence puisque le dï¿½fault est ? la racine
         if (!is_null($this->_module) && $this->_module != "default") {
             $controllerPath .= "modules/$this->_module/";
         }

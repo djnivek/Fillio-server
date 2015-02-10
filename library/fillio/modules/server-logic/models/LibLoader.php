@@ -77,7 +77,6 @@ class Fillio_ServerLogic_LibLoader_Abstract {
 
     protected function loadFilePath($filePath) {
         if (file_exists($filePath)) {
-            echo $filePath;
             require_once $filePath;
         } else {
             return false;

@@ -14,6 +14,7 @@
 class ErrorController extends Fillio_ServerLogic_Action {
     
     public function _requiredLibrary() {
+
     }
     
     public function init() {
@@ -21,6 +22,7 @@ class ErrorController extends Fillio_ServerLogic_Action {
     }
 
     public function indexAction() {
+        $this->setRenderView(true);
         $this->view->errorMessage = "Erreur de l'application";
     }
 

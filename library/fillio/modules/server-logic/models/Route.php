@@ -35,7 +35,7 @@ class Fillio_ServerLogic_Route {
 
     /**
      * Ajoute une route et sa réécriture
-     * @param string $from Url ? convertir sous la forme de pattern Fillio --- e.g /mon/:pattern/fillio/:id
+     * @param string $from Url à convertir sous la forme de pattern Fillio --- e.g /mon/:pattern/fillio/:id
      * @param stirng $to Url sous la forme de de capture --- e.g /mon/nouveau/(pattern)/(id)
      * Les variables :mavariable sont ensuite réutilisées sous cette forme (mavariable)
      */
@@ -45,7 +45,7 @@ class Fillio_ServerLogic_Route {
     }
 
     /**
-     * Réécrit l'URL donn� en param?tre ? partir de la liste des routes
+     * Réécrit l'URL donné en param?tre ? partir de la liste des routes
      * @param string $url ? réécrire
      * @return string Url réécrite
      */

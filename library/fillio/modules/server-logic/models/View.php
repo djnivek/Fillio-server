@@ -45,8 +45,12 @@ class Fillio_ServerLogic_View {
 
         if ($this->layout) {
             require_once(APPLICATION_PATH."/layouts/$this->layout.phtml");
-        } else
+        } else if (preg_match('!!u', $this->content)) {
+            return $this->content;
+        } else {
             return utf8_encode($this->content);
+        }
+
     }
 
     public function __set($name, $value) {
