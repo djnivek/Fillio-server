@@ -16,16 +16,6 @@ require_once 'fillio/modules/storage/models/Table.php';
 abstract class Fillio_Storage_Object_Abstract {
 
     /**
-     * @var string Nom de l'entité dans la base de données
-     */
-    protected $_name;
-
-    /**
-     * @var string Identifiant du champs primaire pour l'entitée
-     */
-    protected $_primaryKeyField;
-
-    /**
      * @var Fillio_Storage_Table
      */
     private $table;
@@ -37,7 +27,8 @@ abstract class Fillio_Storage_Object_Abstract {
 
     function __construct($id = null)
     {
-        $this->table = new Fillio_Storage_Table();
+        $class = get_called_class();
+        $this->table = new Fillio_Storage_Table($class, $this->_tablename);
         if (!is_null($id)) {
             $this->_id = $id;
             $this->load();
@@ -46,6 +37,27 @@ abstract class Fillio_Storage_Object_Abstract {
 
     private function load() {
         $this->table->getObject();
+    }
+
+    public static function getAllObject() {
+        $class = get_called_class();
+        $allInArray = self::getAll();
+        $objs = array();
+        foreach ($allInArray as $oneInArray) {
+            $obj = new $class();
+            foreach ($oneInArray as $key => $val) {
+                $obj->addField($key, $val);
+            }
+            $objs[] = $obj;
+        }
+        return $objs;
+    }
+
+    public static function getAll() {
+        $class = get_called_class();
+        $obj = new $class();
+        $obj->table = new Fillio_Storage_Table($class, $obj->_tablename);
+        return $obj->table->getAll();
     }
 
     private function save() {

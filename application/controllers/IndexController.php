@@ -13,7 +13,7 @@
  */
 class IndexController extends Fillio_ServerLogic_Action {
 
-    public function _requiredLibrary() {
+    protected function _requiredLibrary() {
         //$this->setLibrary("notification");
     }
 
@@ -23,8 +23,8 @@ class IndexController extends Fillio_ServerLogic_Action {
 
     public function indexAction() {
         $this->setRenderView(true);
-        $this->view->Title = "Ma page";
-        $this->view->message = "Bonjour";
+        $this->view->title = "Ma page";
+        $this->view->message = "Bonjour comment ça va ?";
         //$this->view->test = $this->render("menu", array("menu" => "Commande", "pathMenu" => "/path/menu/index"));
     }
 
@@ -35,7 +35,7 @@ class IndexController extends Fillio_ServerLogic_Action {
     }
 
     public function apiAction() {
-        $this->response->user = array("nom" => "machado", "prenom" => "kevin");
+        $this->response->users = Model_User::getAll();
     }
 
 }

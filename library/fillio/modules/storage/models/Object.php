@@ -15,7 +15,24 @@ require_once 'fillio/modules/storage/models/ObjectAbstract.php';
  */
 class Fillio_Storage_Object extends Fillio_Storage_Object_Abstract {
 
-    protected $_name = "test";
-    protected $_primaryKeyField = "id_test";
+    private $fields;
+
+    public function addField($key, $value) {
+        $this->fields[$key] = $value;
+    }
+
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->fields))
+            return $this->fields[$name];
+        else
+            return null;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
 
 }

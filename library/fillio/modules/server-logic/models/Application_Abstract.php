@@ -53,7 +53,6 @@ abstract class Fillio_ServerLogic_Application_Abstract {
     }
 
     /**
-     * @param string $identifier Identifiant de l'application
      * @return Fillio_ServerLogic_Application Instance d'application
      * @throws Exception
      */

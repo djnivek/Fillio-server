@@ -11,6 +11,9 @@
  *
  * @author kevinmachado
  */
-class User extends Fillio_Engine_Object {
-    
+class Model_User extends Fillio_Storage_Object {
+
+    public $_tablename = "user";
+    public $_primaryKeyField = "id_user";
+
 }

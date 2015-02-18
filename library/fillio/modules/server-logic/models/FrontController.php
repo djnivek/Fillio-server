@@ -67,19 +67,22 @@ class Fillio_ServerLogic_FrontController {
             if (method_exists($this->controller, $method)) {
                 $this->controller->$method();
             } else {
-                throw new Fillio_ServerLogic_Exception("L'action demand�e n'existe pas !");
+                throw new Fillio_ServerLogic_Exception("L'action demandée n'existe pas !");
             }
         } else {
-            throw new Fillio_ServerLogic_Exception("Le controlleur demand� n'existe pas !");
+            throw new Fillio_ServerLogic_Exception("Le controlleur demandé n'existe pas !");
         }
     }
 
     private function loadFiles() {
         $controllerPath = APPLICATION_PATH;
-        
-        // * /!\ * Si le module est ? d�fault, on ne va pas dans l'arborescence puisque le d�fault est ? la racine
+
+        Fillio_ServerLogic_Loader::loadDirectoryPath($controllerPath."models");
+
+        // * /!\ * Si le module est à default, on ne va pas dans l'arborescence puisque le default est à la racine
         if (!is_null($this->_module) && $this->_module != "default") {
             $controllerPath .= "modules/$this->_module/";
+            Fillio_ServerLogic_Loader::loadDirectoryPath($controllerPath."models");
         }
 
         $controllerPath .= "controllers/" . ucfirst($this->_controller) . "Controller.php";

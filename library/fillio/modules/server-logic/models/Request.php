@@ -29,6 +29,11 @@ class Fillio_ServerLogic_Request {
      * On récupère ici le 12
      */
     private $additionnalParams;
+
+    /**
+     * @var bool Vrai si l'utilisateur utilise une fonction du FrontApiController
+     */
+    private $flag_api;
     
     private static $_request;
 
@@ -42,13 +47,14 @@ class Fillio_ServerLogic_Request {
     }
 
     private function __construct() {
-        $this->_url = $_SERVER['REDIRECT_URL'];
+        $this->_url = (strlen($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : null);
         $this->_params = array();
         $this->rewriteUrlWithRoute();
     }
     
     private function rewriteUrlWithRoute() {
-        $this->_url = Fillio_ServerLogic_Route::rewriteUrl($this->_url);
+        if (!is_null($this->_url))
+            $this->_url = Fillio_ServerLogic_Route::rewriteUrl($this->_url);
     }
 
     function getUrl() {

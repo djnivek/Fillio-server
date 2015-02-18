@@ -11,7 +11,7 @@
  *
  * @author kevinmachado
  */
-class Fillio_Route_RouteController {
+/*class Fillio_Route_RouteController {
 
     private static $instance;
 
@@ -22,16 +22,16 @@ class Fillio_Route_RouteController {
     /**
      * @return Fillio_Route_RouteController
      */
-    public static function getInstance() {
+    /*public static function getInstance() {
         if (!self::$instance)
             self::$instance = new Fillio_Route_RouteController();
         return self::$instance;
     }
 
     /**
-     * @return Fillio_ServerLogic_Dispatcher Module/Controller/Action demandé
+     * @return Fillio_ServerLogic_Dispatcher Module/Controller/Action demandï¿½
      */
-    public function getDispatcher() {
+    /*public function getDispatcher() {
         $uri_params = array_filter(explode("/", ltrim($_SERVER['REDIRECT_URL'], "/")));
         return new Fillio_ServerLogic_Dispatcher($uri_params);
     }
@@ -40,4 +40,4 @@ class Fillio_Route_RouteController {
         return array();
     }
 
-}
+}*/

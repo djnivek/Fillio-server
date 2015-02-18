@@ -16,26 +16,26 @@ class Fillio_Storage_Database {
     /**
      * @var string Host de la database (e.g 127.0.0.1)
      */
-    private $_host;
+    private $BDD_HOST;
     /**
      * @var integer Port de la database (e.g 8889)
      */
-    private $_port;
+    private $BDD_PORT;
     /**
      * @var string Nom de l'utilisateur de la database
      */
-    private $_username;
+    private $BDD_USERNAME;
     /**
      * @var string Mot de passe de l'utilisateur de la database
      */
-    private $_password;
+    private $BDD_PASSWORD;
     /**
      * @var string Nom de la database
      */
-    private $_databaseName;
+    private $BDD_NAME;
 
     /**
-     * @var PDO Instance de la DB
+     * @var mixed Instance de la DB
      */
     private $_db;
 
@@ -59,11 +59,11 @@ class Fillio_Storage_Database {
      * @param $password
      */
     public function setCredential($host, $port, $dbName, $username, $password) {
-        $this->_host = $host;
-        $this->_port = $port;
-        $this->_username = $username;
-        $this->_password = $password;
-        $this->_databaseName = $dbName;
+        $this->BDD_HOST = $host;
+        $this->BDD_PORT = $port;
+        $this->BDD_USERNAME = $username;
+        $this->BDD_PASSWORD = $password;
+        $this->BDD_NAME = $dbName;
         $this->connection();
     }
 
@@ -87,8 +87,7 @@ class Fillio_Storage_Database {
      * @throws Exception PDO
      */
     private function connection() {
-        $dsn = "mysql:host=$this->_host" . (strlen($this->_port) ? ";$this->_port" : "") . ";dbname=$this->_databaseName";
-        $this->_db = new PDO($dsn, $this->_username, $this->_password);
+        $this->_db = new PDO('mysql:host='.$this->BDD_HOST.';port='.$this->BDD_PORT.';dbname='.$this->BDD_NAME, $this->BDD_USERNAME, $this->BDD_PASSWORD);
     }
 
 }

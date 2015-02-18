@@ -12,8 +12,8 @@
  * @author kevinmachado
  */
 class ErrorController extends Fillio_ServerLogic_Action {
-    
-    public function _requiredLibrary() {
+
+    protected function _requiredLibrary() {
 
     }
     
