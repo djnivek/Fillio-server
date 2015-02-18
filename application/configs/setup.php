@@ -30,12 +30,12 @@ Fillio_ServerLogic_Application::getInstance()->setVersionState("alpha");
 // 
 //  Initialisation d'une route
 //
-Fillio_ServerLogic_Application::getInstance()->addRoute("/classe/:classname/:id/", "/default/(classname)/get/(id)");
+Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/:id/", "/default/(classname)/get/(id)");
 
 //
 //  Initilisation de la database de l'application
 //
-Fillio_Storage_Database::getInstance("main")->setCredential("localhost", "8889", "test-fillio", "root", "root");
+//Fillio_Storage_Database::getInstance("main")->setCredential("localhost", "8889", "test-fillio", "root", "root");
 
 //
 //  Initilisation de la database pour Core Fillio

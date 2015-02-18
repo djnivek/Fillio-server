@@ -50,16 +50,15 @@ class Fillio_ServerLogic_Route {
      * @return string Url réécrite
      */
     public static function rewriteUrl($url) {
-        /*$instance = self::getInstance();
+        $instance = self::getInstance();
         if (!is_null($url) && !is_null($instance->arrayRoutes)) {
             foreach ($instance->arrayRoutes as $basicUrlPattern => $rewroteUrlPattern) {
                 if ($instance->comparePattern($url, $basicUrlPattern)) {
-                    echo "youpi !";
                     $_vars = $instance->getVars($url, $basicUrlPattern);
                     return $instance->rewrite($rewroteUrlPattern, $_vars);
                 }
             }
-        }*/
+        }
         return $url;
     }
 
@@ -72,8 +71,11 @@ class Fillio_ServerLogic_Route {
      */
     private function comparePattern($url, $urlPattern) {
         $urlPregPat = $this->formatPatternToPregPattern($urlPattern);
-        echo "preg_match(<br>$urlPregPat<br>,<br> $url<br>)";
-        return preg_match($urlPregPat, $url);
+
+        echo "<br>preg_match(<br>$urlPregPat<br>,<br> $url<br>)";
+
+        return preg_match("`^$urlPregPat$`", $url);
+
         /* $explodedUrl = array_filter(explode("/", $url));
           foreach ($explodedUrl as $fragment) {
           if (stripos($fragment, ":") === 0) {
@@ -83,7 +85,7 @@ class Fillio_ServerLogic_Route {
     }
 
     /**
-     * Reçoit un pattern sous la forme /my/class/:classname/:id et le transforme en /my/class/(.+)?/(.+)?
+     * Reçoit un pattern sous la forme /my/class/:classname/:id/ et le transforme en /my/class/([^/]+)/([^/]+)/
      * @param string $oldPattern pattern fillio (e.g -> /mon/:pattern)
      * @return string Nouveau pattern pour preg match
      */
@@ -91,7 +93,7 @@ class Fillio_ServerLogic_Route {
         $uri_params = array_filter(explode("/", ltrim($oldPattern, "/")));
         $urlNewPattern = null;
         foreach ($uri_params as $uri_param) {
-            $urlNewPattern .= "/".(stripos($uri_param, ":") === 0 ? "(.+)?" : $uri_param);
+            $urlNewPattern .= "/".(stripos($uri_param, ":") === 0 ? "([^/]+)" : $uri_param);
         }
         return $urlNewPattern;
     }
@@ -106,6 +108,7 @@ class Fillio_ServerLogic_Route {
         foreach ($vars as $varKey => $varValue) {
             $rewroteUrlPattern = str_replace(":$varKey", "$varValue", $rewroteUrlPattern);
         }
+        echo "<br>$rewroteUrlPattern<br>";
         return $rewroteUrlPattern;
     }
 
@@ -117,6 +120,8 @@ class Fillio_ServerLogic_Route {
      */
     private function getVars($url, $basicUrlPattern) {
         $urlPregPat = $this->formatPatternToPregPattern($basicUrlPattern);
+        preg_match("`^$urlPregPat$`", $url, $matches);
+        print_r($matches);
     }
 
 }

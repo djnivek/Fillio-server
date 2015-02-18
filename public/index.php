@@ -16,7 +16,8 @@ else
  */
 $applicationIdentifier = $_POST['application_identifier'];
 
-define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");
+//define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");
+define("APPLICATION_PATH", "/Users/kevinmachado/PhpstormProjects/fillio-sandbox/application/");
 
 //echo APPLICATION_PATH . '/../library/';
 
