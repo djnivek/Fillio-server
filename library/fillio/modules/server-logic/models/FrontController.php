@@ -42,7 +42,7 @@ class Fillio_ServerLogic_FrontController {
 
     private function dispatch() {
         $controllerName = null;
-        if (!is_null($this->_module)) {
+        if (!is_null($this->_module) && $this->_module != "default") {
             $controllerName .= "Module_" . ucfirst($this->_module) . "_";
         }
         $controllerName .= ucfirst($this->_controller) . "Controller";
@@ -67,10 +67,10 @@ class Fillio_ServerLogic_FrontController {
             if (method_exists($this->controller, $method)) {
                 $this->controller->$method();
             } else {
-                throw new Fillio_ServerLogic_Exception("L'action demandée n'existe pas !");
+                throw new Fillio_ServerLogic_Exception("L'action demandée ($this->_module/$this->_controller/$this->_action) n'existe pas !");
             }
         } else {
-            throw new Fillio_ServerLogic_Exception("Le controlleur demandé n'existe pas !");
+            throw new Fillio_ServerLogic_Exception("Le controlleur demandé ($this->_module/$this->_controller) n'existe pas !");
         }
     }
 

@@ -31,6 +31,7 @@ Fillio_ServerLogic_Application::getInstance()->setVersionState("alpha");
 //  Initialisation d'une route
 //
 Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/:id/", "/default/(classname)/get/(id)");
+Fillio_ServerLogic_Application::getInstance()->addRoute("/fillio/:keyword/", "/test/(keyword)");
 
 //
 //  Initilisation de la database de l'application

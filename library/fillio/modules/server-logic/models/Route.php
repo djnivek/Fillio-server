@@ -17,6 +17,8 @@ class Fillio_ServerLogic_Route {
 
     /**
      * @var array
+     * Clé      - Url à convertir sous la forme de pattern Fillio --- e.g /mon/:pattern/fillio/:id
+     * Valeur   - Url sous la forme de de capture --- e.g /mon/nouveau/(pattern)/(id)
      */
     private $arrayRoutes = null;
 
@@ -46,8 +48,8 @@ class Fillio_ServerLogic_Route {
 
     /**
      * Réécrit l'URL donnée en paramètre à partir de la liste des routes
-     * @param string $url à réécrire
-     * @return string Url réécrite
+     * @param string $url à réécrire ( Ex : /class/user/1 )
+     * @return string Url réécrite ( Ex : /fillio/user/get/1 )
      */
     public static function rewriteUrl($url) {
         $instance = self::getInstance();
@@ -71,17 +73,7 @@ class Fillio_ServerLogic_Route {
      */
     private function comparePattern($url, $urlPattern) {
         $urlPregPat = $this->formatPatternToPregPattern($urlPattern);
-
-        echo "<br>preg_match(<br>$urlPregPat<br>,<br> $url<br>)";
-
         return preg_match("`^$urlPregPat$`", $url);
-
-        /* $explodedUrl = array_filter(explode("/", $url));
-          foreach ($explodedUrl as $fragment) {
-          if (stripos($fragment, ":") === 0) {
-          $fragKey = str_replace(":", "", $fragment);
-          }
-          } */
     }
 
     /**
@@ -100,15 +92,14 @@ class Fillio_ServerLogic_Route {
 
     /**
      * Réécrit une URL à partir d'un pattern et d'un tableau de valeur
-     * @param $rewroteUrlPattern string Pattern pour la réécriture d'URL sous la forme -> mon/url/de/:what/:and
-     * @param $vars array Ensemble clé/valeur ('what' => 'dingue', 'and' => 'lol')
+     * @param $rewroteUrlPattern string Pattern pour la réécriture d'URL sous la forme -> class/(classname)/(id)
+     * @param $vars array Ensemble clé/valeur ('classname' => 'user', 'id' => '1')
      * @return Url réécrite
      */
     private function rewrite($rewroteUrlPattern, $vars) {
         foreach ($vars as $varKey => $varValue) {
-            $rewroteUrlPattern = str_replace(":$varKey", "$varValue", $rewroteUrlPattern);
+            $rewroteUrlPattern = str_replace("($varKey)", "$varValue", $rewroteUrlPattern);
         }
-        echo "<br>$rewroteUrlPattern<br>";
         return $rewroteUrlPattern;
     }
 
@@ -119,9 +110,44 @@ class Fillio_ServerLogic_Route {
      * @return array Ensemble clé/valeur ('what' => 'dingue', 'and' => 'lol')
      */
     private function getVars($url, $basicUrlPattern) {
+        $values = $this->getVarsValue($url, $basicUrlPattern);
+        $keys = $this->getVarsKey($basicUrlPattern);
+        $valsKeys = array();
+        for ($i = 0; $i < count($keys); $i++) {
+            $valsKeys[$keys[$i]] = $values[$i+1];
+        }
+        return $valsKeys;
+    }
+
+    /**
+     * Obtenir les valeurs des variables pour l'URL passé en fonction du pattern
+     * @param $url string Sous forme -> mon/url/de/dingue/lol
+     * @param $basicUrlPattern string Sous la forme -> mon/url/de/:what/:and
+     * @return array Ensemble de valeurs ('1' => 'dingue', '2' => 'lol')
+     */
+    private function getVarsValue($url, $basicUrlPattern) {
         $urlPregPat = $this->formatPatternToPregPattern($basicUrlPattern);
         preg_match("`^$urlPregPat$`", $url, $matches);
-        print_r($matches);
+        unset($matches[0]);
+        return $matches;
+    }
+
+    /**
+     * Retourne la liste des clés des variables de l'url
+     * Ex : class/:classname/:id
+     * Cela retournera 'classname' et 'id' dans un tableau
+     * @param $urlPattern string Url sous la forme -> class/:classname/:id
+     * @return array liste des clés
+     */
+    private function getVarsKey($urlPattern) {
+        $uri_params = array_filter(explode("/", ltrim($urlPattern, "/")));
+        $vars = array();
+        foreach ($uri_params as $uri_param) {
+            if (stripos($uri_param, ":") === 0) {
+                $vars[] = ltrim($uri_param, ":");
+            }
+        }
+        return $vars;
     }
 
 }

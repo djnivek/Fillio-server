@@ -16,18 +16,12 @@ else
  */
 $applicationIdentifier = $_POST['application_identifier'];
 
-//define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");
-define("APPLICATION_PATH", "/Users/kevinmachado/PhpstormProjects/fillio-sandbox/application/");
-
-//echo APPLICATION_PATH . '/../library/';
+define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");   //  Macbook Pro
+//define("APPLICATION_PATH", "/Users/kevinmachado/PhpstormProjects/fillio-sandbox/application/");           //  iMac
 
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library/')//,
-    //get_include_path(),
+    realpath(APPLICATION_PATH . '/../library/')
 )));
-
-
-//echo get_include_path();die;
 
 require_once 'fillio/Fillio.php';
 Fillio::start()->run($env);

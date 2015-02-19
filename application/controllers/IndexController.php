@@ -38,4 +38,8 @@ class IndexController extends Fillio_ServerLogic_Action {
         $this->response->users = Model_User::getAll();
     }
 
+    public function testmoiAction(){
+        $this->response->status = array("done"=>1);
+    }
+
 }

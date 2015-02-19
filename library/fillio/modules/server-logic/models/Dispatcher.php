@@ -18,7 +18,7 @@ class Fillio_ServerLogic_Dispatcher {
     public $action;
 
     /**
-     * Recoit les l'url de redirection explosée par "/"
+     * Recoit les l'url de redirection explosÃ©e par "/"
      * @param array $uri_params
      */
     public function __construct($uri_params) {
