@@ -58,15 +58,27 @@ abstract class Fillio_ServerLogic_Action {
     }
 
     /**
-     * Permet d'obtenir les param?tres de la requ?te (POST & GET)
+     * Permet d'obtenir les paramètres de la requête (POST & GET)
      * 
      * @see Fillio_ServerLogic_Request->getParam()
      * 
-     * @param string $key Cl�
-     * @return mixed|null Retourne la valeur ou null la cl� n'existe pas
+     * @param string $key Clé
+     * @return mixed|null Retourne la valeur ou null la clé n'existe pas
      */
     protected function getParam($key) {
         return $this->getRequest()->getParam($key);
+    }
+
+    /**
+     * Permet d'obtenir les paramètres de l'URL
+     *
+     * @see Fillio_ServerLogic_Request->getUrlParam()
+     *
+     * @param string $key Clé
+     * @return mixed|null Retourne la valeur ou null la clé n'existe pas
+     */
+    protected function getUrlParam($key) {
+        return $this->getRequest()->getUrlParam($key);
     }
 
     /**
@@ -77,11 +89,7 @@ abstract class Fillio_ServerLogic_Action {
     }
 
     public function setLibrary($name = null, $module = null, $controller = null) {
-        $lib = Fillio_ServerLogic_Library::loadLibrary($name, $module, $controller);
-        /*$lib->setName($name);
-        $lib->setModule($module);
-        $lib->setController($controller);
-        $lib->load();*/
+        Fillio_ServerLogic_Library::loadLibrary($name, $module, $controller);
     }
 
     /**

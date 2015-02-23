@@ -23,7 +23,7 @@ class Fillio_ServerLogic_Dispatcher {
      */
     public function __construct($uri_params) {
         if (is_array($uri_params) && count($uri_params)) {
-            if (count($uri_params) == 3) {
+            if (count($uri_params) >= 3) {
                 $this->module = strtolower($uri_params[0]);
                 $this->controller = strtolower($uri_params[1]);
                 $this->action = strtolower($uri_params[2]);
@@ -45,6 +45,7 @@ class Fillio_ServerLogic_Dispatcher {
             $this->controller = 'index';
             $this->action = 'index';
         }
+        $this->module = ($this->module == "default" ? null : $this->module);
     }
 
 }

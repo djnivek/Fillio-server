@@ -15,5 +15,6 @@ class TestController extends Fillio_ServerLogic_Action {
 
     public function apiAction() {
         $this->setRenderView(true);
+        $this->view->mavar = $this->getUrlParam("keyword");
     }
 }

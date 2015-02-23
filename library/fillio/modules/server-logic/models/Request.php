@@ -24,11 +24,11 @@ class Fillio_ServerLogic_Request {
     private $_url;
 
     /**
-     * @var array Tableau de paramètres additionnels
-     * /index/user/12
+     * @var array Tableau de paramètres d'URL
+     * default/index/user/12
      * On récupère ici le 12
      */
-    private $additionnalParams;
+    private $_urlParams;
 
     /**
      * @var bool Vrai si l'utilisateur utilise une fonction du FrontApiController
@@ -49,66 +49,92 @@ class Fillio_ServerLogic_Request {
     private function __construct() {
         $this->_url = (strlen($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : null);
         $this->_params = array();
+        $this->_urlParams = array();
         $this->rewriteUrlWithRoute();
     }
-    
+
+    /**
+     * Permet de lancer la réécriture de l'url à l'aide des routes
+     */
     private function rewriteUrlWithRoute() {
-        if (!is_null($this->_url))
+        if (!is_null($this->_url)) {
             $this->_url = Fillio_ServerLogic_Route::rewriteUrl($this->_url);
+            $this->handleUrlParams();
+        }
     }
 
-    function getUrl() {
+    /**
+     * Permet de récupérer les paramètres dans l'URL en suivant les intructions des routes
+     */
+    private function handleUrlParams() {
+        $this->setUrlParams(Fillio_ServerLogic_Route::$varsFromUrl);
+    }
+
+    public static function getUrl() {
         $instance = self::getInstance();
         return $instance->_url;
     }
 
     /**
-     * R�cup?re les param?tres de la requ?te
+     * Récupère les paramètres de la requête
      * 
-     * Les param?tres sont ceux de $_REQUEST ainsi que ceux ajouter via
+     * Les paramètres sont ceux de $_REQUEST ainsi que ceux ajouter via
      * setParam() & setParams()
      * 
-     * @param string $key Cl� de l'attribut souhait�
+     * @param string $key Clé de l'attribut souhaité
      * @return mixed|null Retourne la valeur ou null si la valeur n'existe pas
      */
-    function getParam($key) {
+    public static function getParam($key) {
         $instance = self::getInstance();
         $value = null;
         if (filter_input(INPUT_REQUEST, $key) !== null) {
             $value = filter_input(INPUT_REQUEST, $key);
-        } else if (key_exists($key, $instance->_params)) {
+        } else if (array_key_exists($key, $instance->_params)) {
             $value = $instance->_params[$key];
         }
         return $value;
     }
 
-    function setParam($key, $value) {
+    public static function setParam($key, $value) {
         $instance = self::getInstance();
-        if (!key_exists($key, $this->_params))
+        if (!array_key_exists($key, $instance->_params))
             $instance->_params[$key] = $value;
     }
 
-    function setParams($params) {
+    public static function setParams($params) {
         $instance = self::getInstance();
         foreach ($params as $key => $value) {
-            if (!key_exists($key, $this->_params))
+            if (!array_key_exists($key, $instance->_params))
                 $instance->_params[$key] = $value;
         }
     }
 
-    private function setAdditionnalParams() {
-        // comment savoir o? commence les additionnals params (dans le cas d'un module et dans le cas d'un non module ?)
-        // utiliser les routes ?
-        //$this->additionnalParams
-        //explode("/", $this->_url)
+    /**
+     * Récupère les paramètres de l'Url
+     *
+     * @param string $key Clé de l'attribut souhaité
+     * @return mixed|null Retourne la valeur ou null si la valeur n'existe pas
+     */
+    public static function getUrlParam($key) {
+        $instance = self::getInstance();
+        $value = null;
+        if (filter_input(INPUT_REQUEST, $key) !== null) {
+            $value = filter_input(INPUT_REQUEST, $key);
+        } else if (array_key_exists($key, $instance->_urlParams)) {
+            $value = $instance->_urlParams[$key];
+        }
+        return $value;
     }
 
-    public function getAdditionnalParams() {
-        
+    protected function setUrlParams($params) {
+        foreach ($params as $key => $value) {
+            if (!array_key_exists($key, $this->_urlParams))
+                $this->_urlParams[$key] = $value;
+        }
     }
 
     /**
-     * @return Fillio_ServerLogic_Dispatcher Module/Controller/Action demand�
+     * @return Fillio_ServerLogic_Dispatcher Module/Controller/Action demandé
      */
     public function getDispatcher() {
         $uri_params = array_filter(explode("/", ltrim($this->_url, "/")));
