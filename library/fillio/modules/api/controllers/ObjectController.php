@@ -6,7 +6,7 @@
  * Time: 19:09
  */
 
-class ObjectController extends Fillio_Api_Action {
+/*class ObjectController extends Fillio_Api_Action {
 
     public function getAction() {
         $objectAsked = array("class" => "user", "id" => "2");

@@ -68,6 +68,21 @@ abstract class Fillio_ServerLogic_Application_Abstract {
         return $this->_frontController;
     }
 
+    /**
+     * Assigné un controlleur
+     *
+     * Cette méthode est utilisée pour changer le type du FrontController
+     *
+     * @param $controller Fillio_ServerLogic_FrontController|Fillio_ServerLogic_FrontController_Library
+     * @throws Fillio_ServerLogic_Exception
+     */
+    public function setFrontController($controller) {
+        if (!isset($controller))
+            throw new Fillio_ServerLogic_Exception("Le controlleur n'est pas connu", 4000);
+        else
+            $this->_frontController = $controller;
+    }
+
     function setApplicationIdentifier($_applicationIdentifier) {
         $this->_applicationIdentifier = $_applicationIdentifier;
     }
@@ -118,6 +133,7 @@ abstract class Fillio_ServerLogic_Application_Abstract {
 
     /**
      * Configure l'application et la lance
+     * @param $environment string Environnement de développement (DEVELOPMENT ? - PRODUCTION ?)
      */
     public function run($environment) {
 
@@ -131,6 +147,11 @@ abstract class Fillio_ServerLogic_Application_Abstract {
         $dispatcher = Fillio_ServerLogic_Request::getInstance()->getDispatcher();
 
         // attribution de l'action à appeler
+
+        if ($dispatcher->flag_FCLib) {
+            $this->_frontController = new Fillio_ServerLogic_FrontController_Library();
+            $this->_frontController->setLibrary($dispatcher->library);
+        }
         $this->_frontController->setModule($dispatcher->module);
         $this->_frontController->setController($dispatcher->controller);
         $this->_frontController->setAction($dispatcher->action);
@@ -144,6 +165,7 @@ abstract class Fillio_ServerLogic_Application_Abstract {
             Fillio_ServerLogic_Registry::set("fillio_error_message", $e->getMessage());
 
             // on lance le controlleur d'erreur
+            $this->_frontController = new Fillio_ServerLogic_FrontController();
             $this->_frontController->setModule(null);
             $this->_frontController->setController("error");
             $this->_frontController->setAction("index");

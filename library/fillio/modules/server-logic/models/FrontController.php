@@ -13,14 +13,14 @@
  */
 class Fillio_ServerLogic_FrontController {
 
-    private $_module;
-    private $_controller;
-    private $_action;
+    protected $_module;
+    protected $_controller;
+    protected $_action;
 
     /**
      * @var Fillio_ServerLogic_Action Controller
      */
-    private $controller;
+    protected $controller;
 
     public function __construct() {
         
@@ -40,7 +40,7 @@ class Fillio_ServerLogic_FrontController {
             return json_encode($this->controller->getResponse());
     }
 
-    private function dispatch() {
+    protected function dispatch() {
         $controllerName = null;
         if (!is_null($this->_module) && $this->_module != "default") {
             $controllerName .= "Module_" . ucfirst($this->_module) . "_";
@@ -74,7 +74,7 @@ class Fillio_ServerLogic_FrontController {
         }
     }
 
-    private function loadFiles() {
+    protected function loadFiles() {
         $controllerPath = APPLICATION_PATH;
 
         Fillio_ServerLogic_Loader::loadDirectoryPath($controllerPath."models");

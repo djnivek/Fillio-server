@@ -15,4 +15,7 @@ class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
 
     protected function _requiredLibrary(){}
 
+    public function getAction() {
+        $this->response->message = "Hello world";
+    }
 }

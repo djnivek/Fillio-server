@@ -34,7 +34,7 @@ Fillio_ServerLogic_Application::getInstance()->setVersionState("alpha");
 /**
  *      Nouveauté -> les routes peuvent désormais pointer vers des controllers de librairies
  **/
-//Fillio_ServerLogic_Application::getInstance()->addRoute("/api/:classname/:action/:id/", "/->fillio->api->data/(action)/");
+Fillio_ServerLogic_Application::getInstance()->addRoute("/api/:classname/:action/:id/", "/->fillio->api/data/(action)/");
 
 //
 //  Initilisation de la database de l'application
