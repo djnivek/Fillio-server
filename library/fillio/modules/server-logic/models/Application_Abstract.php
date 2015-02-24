@@ -145,7 +145,7 @@ abstract class Fillio_ServerLogic_Application_Abstract {
 
             // on lance le controlleur d'erreur
             $this->_frontController->setModule(null);
-            $this->_frontController->setController("erreur");
+            $this->_frontController->setController("error");
             $this->_frontController->setAction("index");
             echo $this->_frontController->execute();
         }

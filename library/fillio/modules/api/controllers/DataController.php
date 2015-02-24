@@ -11,6 +11,8 @@
  *
  * @author kevinmachado
  */
-class Fillio_Api_DataController {
-    //public static function formatData
+class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
+
+    protected function _requiredLibrary(){}
+
 }

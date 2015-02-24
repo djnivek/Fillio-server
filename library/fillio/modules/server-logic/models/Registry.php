@@ -34,8 +34,7 @@ class Fillio_ServerLogic_Registry extends ArrayObject {
     public static function get($name) {
         $instance = self::getInstance();
         if (!$instance->offsetExists($name)) {
-            require_once 'fillio/engine/Exception.php';
-            throw new Fillio_ServerLogic__Exception("No entry is registered for key '$name'");
+            throw new Fillio_ServerLogic_Exception("No entry is registered for key '$name'");
         }
         return $instance->offsetGet($name);
     }

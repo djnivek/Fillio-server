@@ -70,7 +70,7 @@ class Fillio_ServerLogic_FrontController {
                 throw new Fillio_ServerLogic_Exception("L'action demandée ($this->_module/$this->_controller/$this->_action) n'existe pas !");
             }
         } else {
-            throw new Fillio_ServerLogic_Exception("Le controlleur demandé ($this->_module/$this->_controller) n'existe pas !");
+            throw new Fillio_ServerLogic_Exception("Le controlleur demandé ($this->_module/$controllerName) n'existe pas !");
         }
     }
 
@@ -94,6 +94,7 @@ class Fillio_ServerLogic_FrontController {
             $this->loadFiles();
         } else
             require_once($controllerPath);
+
     }
 
     public function setModule($module) {
