@@ -22,8 +22,8 @@ class ErrorController extends Fillio_ServerLogic_Action {
     }
 
     public function indexAction() {
-        $this->setRenderView(true);
-        $this->view->errorMessage = "Erreur de l'application";
+        //$this->setRenderView(true);
+        $this->response->message = Fillio_ServerLogic_Registry::get("fillio_error_message");
     }
 
 }

@@ -58,7 +58,12 @@ class Fillio_ServerLogic_View {
     }
 
     public function __get($name) {
-        return $this->datas[$name];
+        if (array_key_exists($name, $this->datas)) {
+            return $this->datas[$name];
+        } else {
+            return null;
+        }
+
     }
     
     function setModule($_module) {

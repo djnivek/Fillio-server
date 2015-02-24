@@ -47,7 +47,9 @@ class Fillio_ServerLogic_Request {
     }
 
     private function __construct() {
-        $this->_url = (strlen($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : null);
+        if (!empty($_SERVER['REDIRECT_URL'])) {
+            $this->_url = $_SERVER['REDIRECT_URL'];
+        }
         $this->_params = array();
         $this->_urlParams = array();
         $this->rewriteUrlWithRoute();

@@ -37,6 +37,7 @@ class Fillio_ServerLogic_Response extends ArrayObject {
             "stuf5" => "ok3"
         );
         $this->fillio_data = base64_encode(json_encode($fillioDatas));
+
         return $this;
     }
 

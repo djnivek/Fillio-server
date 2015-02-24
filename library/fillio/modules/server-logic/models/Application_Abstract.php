@@ -136,7 +136,20 @@ abstract class Fillio_ServerLogic_Application_Abstract {
         $this->_frontController->setAction($dispatcher->action);
 
         // execution de l'action
-        echo $this->_frontController->execute();
+        try {
+            echo $this->_frontController->execute();
+        } catch (Fillio_ServerLogic_Exception $e) {
+
+            // on stock le message d'erreur
+            Fillio_ServerLogic_Registry::set("fillio_error_message", $e->getMessage());
+
+            // on lance le controlleur d'erreur
+            $this->_frontController->setModule(null);
+            $this->_frontController->setController("erreur");
+            $this->_frontController->setAction("index");
+            echo $this->_frontController->execute();
+        }
+
     }
 
 }

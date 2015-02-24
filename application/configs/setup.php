@@ -20,7 +20,7 @@ Fillio_ServerLogic_Application::getInstance()->setName("YouCanDoIt");
 // 
 //  Version de l'application
 //
-Fillio_ServerLogic_Application::getInstance()->setVersion("0.1.0");
+Fillio_ServerLogic_Application::getInstance()->setVersion("0.2.0");
 
 // 
 //  Type Version de l'application
