@@ -59,8 +59,8 @@ class Fillio_ServerLogic_Library {
         require_once 'fillio/modules/server-logic/models/LibLoader.php';
         if (!is_null($this->_name) && !is_null($this->_module) && !is_null($this->_controller)) {
             // charger le controller pour le module de la librarie donnée
-            Fillio_ServerLogic_LibLoader::loadFile($this->getPath() . "/controllers", $this->getFilename());
             Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath() . "/models", true);
+            Fillio_ServerLogic_LibLoader::loadFile($this->getPath() . "/controllers", $this->getFilename());
         } else if (!is_null($this->_name) && !is_null($this->_module)) {
             // charger le module de la librarie donnée
             Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath(), true);

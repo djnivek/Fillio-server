@@ -19,9 +19,9 @@ class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
         $id = $this->getUrlParam("id");
         $classname = $this->getUrlParam("classname");
 
-        /*$class = "Model_".ucfirst($classname);
+        $class = "Model_".ucfirst($classname);
         $obj = new $class($id);
-        $this->response->object = $obj->toString();*/
+        $this->response->object = $obj->toString();
 
         $this->response->message = "Hello world /$classname/$id/";
 

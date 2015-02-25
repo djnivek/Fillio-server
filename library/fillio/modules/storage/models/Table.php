@@ -25,17 +25,18 @@ class Fillio_Storage_Table {
 
     /**
      * @var Nom de la classe
+     * Exemple : Model_User
      */
     private $_classname;
 
     /**
      * @param $classname string Nom de la classe appelante
-     * @param $tablename string Nom de la table
      */
-    function __construct($classname, $tablename)
+    function __construct($classname)
     {
         $this->_classname = $classname;
-        $this->_name = $tablename;
+        $this->_name = $classname::$_tablename;
+        $this->_primaryKeyField = $classname::$_primaryKeyField;
     }
 
     /**
@@ -55,10 +56,17 @@ class Fillio_Storage_Table {
     /**
      * @param string $id Identifiant primaire de l'objet
      * @return mixed Objet de la table
+     * @throws Fillio_ServerLogic_Exception
      */
     public function getObject($id = null) {
-        $request = $this->selectRequest()." WHERE ".$this->_primaryKeyField. " = $id";
-        return $this->executeQuery($request);
+        if (is_null($id)) {
+            throw new Fillio_ServerLogic_Exception("Vous devez fournir un identifiant pour récupérer un objet");
+        } else {
+            $request = $this->selectRequest()." WHERE ".$this->_primaryKeyField. " = $id";
+            $res = $this->executeQuery($request);
+            return (is_null($res) ? null : $res[0]);
+        }
+
     }
 
     /**

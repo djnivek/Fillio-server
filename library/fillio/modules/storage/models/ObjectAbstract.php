@@ -28,7 +28,7 @@ abstract class Fillio_Storage_Object_Abstract {
     function __construct($id = null)
     {
         $class = get_called_class();
-        $this->table = new Fillio_Storage_Table($class, $this->_tablename);
+        $this->table = new Fillio_Storage_Table($class);
         if (!is_null($id)) {
             $this->_id = $id;
             $this->load();
@@ -36,7 +36,9 @@ abstract class Fillio_Storage_Object_Abstract {
     }
 
     private function load() {
-        $this->table->getObject();
+        $obj = $this->table->getObject($this->_id);
+        $this->name = $obj["name"];
+        print_r($this);die;
     }
 
     public static function getAllObject() {
@@ -56,7 +58,7 @@ abstract class Fillio_Storage_Object_Abstract {
     public static function getAll() {
         $class = get_called_class();
         $obj = new $class();
-        $obj->table = new Fillio_Storage_Table($class, $obj->_tablename);
+        $obj->table = new Fillio_Storage_Table($class);
         return $obj->table->getAll();
     }
 

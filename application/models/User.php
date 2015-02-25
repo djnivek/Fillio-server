@@ -13,7 +13,7 @@
  */
 class Model_User extends Fillio_Storage_Object {
 
-    public $_tablename = "user";
-    public $_primaryKeyField = "id_user";
+    public static $_tablename = "user";
+    public static $_primaryKeyField = "id_user";
 
 }

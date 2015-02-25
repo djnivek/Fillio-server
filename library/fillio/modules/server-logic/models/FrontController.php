@@ -83,12 +83,12 @@ class Fillio_ServerLogic_FrontController {
     protected function loadFiles() {
         $controllerPath = APPLICATION_PATH;
 
-        Fillio_ServerLogic_Loader::loadDirectoryPath($controllerPath."models");
+        Fillio_ServerLogic_Loader_Abstract::loadDirectoryPath($controllerPath."models");
 
         // * /!\ * Si le module est à default, on ne va pas dans l'arborescence puisque le default est à la racine
         if (!is_null($this->_module) && $this->_module != "default") {
             $controllerPath .= "modules/$this->_module/";
-            Fillio_ServerLogic_Loader::loadDirectoryPath($controllerPath."models");
+            Fillio_ServerLogic_Loader_Abstract::loadDirectoryPath($controllerPath."models");
         }
 
         $controllerPath .= "controllers/" . ucfirst($this->_controller) . "Controller.php";
@@ -100,7 +100,6 @@ class Fillio_ServerLogic_FrontController {
             $this->loadFiles();
         } else
             require_once($controllerPath);
-
     }
 
     public function setModule($module) {

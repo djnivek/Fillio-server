@@ -28,11 +28,10 @@ class Fillio_ServerLogic_Loader_Abstract {
     }
 
     public static function loadFilePath($filePath) {
-        if (file_exists($filePath)) {
+        if (file_exists($filePath))
             require_once $filePath;
-        } else {
+        else
             return false;
-        }
     }
 
 }
