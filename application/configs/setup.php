@@ -1,7 +1,7 @@
 <?php
 
 /**
- * D�finition des constantes de l'application
+ * Définition des constantes de l'application
  */
 
 // Identifiant de l'application

@@ -37,11 +37,9 @@ class Fillio_ServerLogic_FrontController_Library extends Fillio_ServerLogic_Fron
     }
 
     /**
-     * /!\ On surcharge la méthode afin d'ajouter la recherche de modules internes
-     * /!\ aux librairies
+     * /!\ On surcharge la méthode afin de changer le nom du controlleur
      */
-    protected function dispatch()
-    {
+    protected function getControllerName() {
         $controllerName = null;
         if (!is_null($this->_libraryName)) {
             $controllerName .= ucfirst($this->_libraryName) . "_";
@@ -52,31 +50,7 @@ class Fillio_ServerLogic_FrontController_Library extends Fillio_ServerLogic_Fron
         }
         $controllerName .= ucfirst($this->_controller) . "Controller";
 
-        if (class_exists($controllerName)) {
-
-            /*
-             * Attribution du controller
-             */
-            $this->controller = new $controllerName();
-            // Set module pour le tracking
-            $this->controller->setModule($this->_module);
-            // Set controller pour le tracking
-            $this->controller->setController($this->_controller);
-            // Set action pour le tracking
-            $this->controller->setAction($this->_action);
-
-            /*
-             * Appel de l'action
-             */
-            $method = $this->_action . 'Action';
-            if (method_exists($this->controller, $method)) {
-                $this->controller->$method();
-            } else {
-                throw new Fillio_ServerLogic_Exception("L'action demandée ($this->_module/$controllerName/$method) n'existe pas !");
-            }
-        } else {
-            throw new Fillio_ServerLogic_Exception("Le controlleur demandé ($this->_module/$controllerName) n'existe pas !");
-        }
+        return $controllerName;
     }
 
     /**

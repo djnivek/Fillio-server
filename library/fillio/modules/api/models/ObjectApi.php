@@ -14,27 +14,27 @@
 class Fillio_Api_Object_Api {
 
     /**
-     * @var array() Propriété en lecture seule
+     * @var array() PropriÃ©tÃ© en lecture seule
      */
     private $readonly;
 
     /**
-     * @var array() Propriété dont il est interdit d'envoyer les informations
+     * @var array() PropriÃ©tÃ© dont il est interdit d'envoyer les informations
      */
     private $ungettable;
 
     /**
      * Obtenir les objets (un ou plusieurs)
-     * Si aucun identifiant n'est passé, on envoi l'ensemble des objets
+     * Si aucun identifiant n'est passÃ©, on envoi l'ensemble des objets
      * 
-     * Méthode appelé lorsque l'on fait un GET par l'API
+     * MÃ©thode appelÃ© lorsque l'on fait un GET par l'API
      * 
      * @param string $id Identifiant de l'objet (falcultatif)
      * @return mixed Objet(s) de la classe appelante
      */
     public function __fillio_api_get($id) {
-        // on recup?re les données
-        // /!\ les champs ungettable ne doivent pas ?tre présent
+        // on recupÃ¨re les donnÃ©es
+        // /!\ les champs ungettable ne doivent pas Ãªtre prÃ©sent
         // 
         // $toExclude = $this->ungettable;
         // 
@@ -48,8 +48,8 @@ class Fillio_Api_Object_Api {
     }
 
     /**
-     * Ajouter une propriété parmis les éléments dont il sera interdit de renvoyer dans l'API
-     * @param type $property
+     * Ajouter une propriÃ©tÃ© parmis les Ã©lÃ©ments dont il sera interdit de renvoyer dans l'API
+     * @param string $property
      */
     public function setUngettableProperty($property = null) {
         if (!is_null($property) && !strlen($property)) {

@@ -123,17 +123,17 @@ abstract class Fillio_ServerLogic_Action {
         }
     }
 
-    public function setModule($module) {
+    public function _setModule($module) {
         $this->_module = $module;
         $this->view->setModule($module);
     }
 
-    public function setController($controller) {
+    public function _setController($controller) {
         $this->_controller = $controller;
         $this->view->setController($controller);
     }
 
-    public function setAction($action) {
+    public function _setAction($action) {
         $this->view->setAction($action);
     }
 
