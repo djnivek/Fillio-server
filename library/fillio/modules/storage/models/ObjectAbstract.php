@@ -28,7 +28,7 @@ abstract class Fillio_Storage_Object_Abstract {
     function __construct($id = null)
     {
         $class = get_called_class();
-        $this->table = new Fillio_Storage_Table($class);
+        $this->table = Fillio_Storage_Table::getInstance($class);
         if (!is_null($id)) {
             $this->_id = $id;
             $this->load();

@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+require_once 'fillio/modules/storage/models/TableStructure.php';
+
 /**
  * Table de la base de données
  *
@@ -14,44 +16,86 @@
 class Fillio_Storage_Table {
 
     /**
-     * @var Nom de la table
+     * @var string Nom de la table
      */
     private $_name;
 
     /**
-     * @var Nom du champs clé primaire
+     * @var string Nom du champs clé primaire
      */
     private $_primaryKeyField;
 
     /**
-     * @var Nom de la classe
+     * @var string Nom de la classe
      * Exemple : Model_User
      */
     private $_classname;
 
     /**
-     * @param $classname string Nom de la classe appelante
+     * @var Fillio_Storage_Table instance de la table
      */
-    function __construct($classname)
-    {
-        $this->_classname = $classname;
-        $this->_name = $classname::$_tablename;
-        $this->_primaryKeyField = $classname::$_primaryKeyField;
+    private static $_instance;
+
+    /**
+     * @var Fillio_Storage_Table_Structure Structure de la table composé des noms des
+     * champs de la table
+     *
+     * Ex : [id_user, username, password]
+     */
+    private $_struct;
+
+    public static function getInstance($classname) {
+        if (is_null(self::$_instance))
+            self::$_instance = new Fillio_Storage_Table($classname);
+        return self::$_instance;
     }
 
     /**
-     * @param $name Définir le nom de la table
+     * @param $classname string Nom de la classe appelante
+     * @throws Fillio_ServerLogic_Exception
      */
-    /*function setName($name) {
-        $this->_name = $name;
-    }*/
+    private function __construct($classname)
+    {
+        ////////////////////////////////////////////
+        //                                        //
+        //  Définition des éléments de la table   //
+        //                                        //
+        ////////////////////////////////////////////
+
+        // définition du nom de la classe (Ex : Model_User)
+        $this->_classname = $classname;
+
+        // définition du nom de la table
+        if (!is_null($classname::$_tablename))
+            $this->_name = $classname::$_tablename;
+        else
+            throw new Fillio_ServerLogic_Exception("Le nom de la table n'est pas renseignée");
+
+        // définition de la clé primaire (Ex : id_user)
+        /*if (!is_null($classname::$_primaryKeyField))
+            $this->_primaryKeyField = $classname::$_primaryKeyField;
+        else
+            throw new Fillio_ServerLogic_Exception("La clé primaire n'est pas renseignée");*/
+
+        ////////////////////////////////////////////
+        //                                        //
+        //  Définition des propriétés internes    //
+        //                                        //
+        ////////////////////////////////////////////
+        $this->_setInnerPropsStruct();
+
+    }
 
     /**
-     * @param $primaryKeyField Définir le nom du champs de la clé primaire
+     * Chargement des structures de la table
      */
-    /*function setPrimaryKeyField($primaryKeyField) {
-        $this->$_primaryKeyField = $primaryKeyField;
-    }*/
+    private function _setInnerPropsStruct()
+    {
+        $sql = "show columns from $this->_name";
+        $columns = $this->executeQuery($sql);
+        $this->_struct = new Fillio_Storage_Table_Structure($columns);
+        $this->_primaryKeyField = $this->_struct->getPrimaryKey()->name;
+    }
 
     /**
      * @param string $id Identifiant primaire de l'objet
@@ -68,15 +112,6 @@ class Fillio_Storage_Table {
         }
 
     }
-
-    /**
-     * @param $classname string Nom de la classe appelante
-     * @return array Retourne un tableau d'objet
-     */
-    /*public static function getAll($classname) {
-        $instance = new Fillio_Storage_Table($classname);
-        return $instance->getObjects();
-    }*/
 
     /**
      * @return array Retourne un tableau
@@ -105,8 +140,6 @@ class Fillio_Storage_Table {
         } else {
             return $statement->fetchAll();
         }
-
-
     }
 
 }

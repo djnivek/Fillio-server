@@ -35,7 +35,7 @@ class Fillio_Storage_Database {
     private $BDD_NAME;
 
     /**
-     * @var mixed Instance de la DB
+     * @var PDO Instance de la DB
      */
     private $_db;
 
