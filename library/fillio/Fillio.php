@@ -23,7 +23,6 @@ class Fillio {
      * @return Fillio_ServerLogic_Application
      */
     public static function start() {
-
         // Intercepte les fatals erreurs de chargement
         // Charge la classe appropriée
         // Si impossible alors on lève une exception

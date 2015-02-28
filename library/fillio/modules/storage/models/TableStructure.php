@@ -30,7 +30,7 @@ class Fillio_Storage_Table_Structure {
     {
         foreach ($columns as $field) {
             $fieldName = $field['Field'];
-            $fields[$fieldName] = new Fillio_Storage_Table_Field($field);
+            $this->fields[$fieldName] = new Fillio_Storage_Table_Field($field);
         }
     }
 
