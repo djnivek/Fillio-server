@@ -47,4 +47,15 @@ class Fillio_Storage_Table_Structure {
         return null;
     }
 
+    /**
+     * @return array|null Tableau avec la liste des clés de la table
+     */
+    public function getFieldKeys() {
+        $fieldKeys = null;
+        foreach ($this->fields as $field) {
+            $fieldKeys[] = $field->name;
+        }
+        return $fieldKeys;
+    }
+
 }

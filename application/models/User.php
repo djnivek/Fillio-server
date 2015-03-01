@@ -15,4 +15,7 @@ class Model_User extends Fillio_Storage_Object {
 
     public static $_tablename = "user";
 
+    public static function getAllActif() {
+        return self::findAll("actif = 1");
+    }
 }

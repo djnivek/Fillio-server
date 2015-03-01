@@ -9,7 +9,7 @@ This is the server side of Fill.io Framework based on an MVC architecture and PH
 
 This is a wonderful framework based on multiple languages. It provides a fully backend solution for your applications.
 
-Our goal it's to simplify the process between the server and your application, whatever plateform it is (iOS / Android ...)
+Our goal it's to simplify the process between the server and your application, whatever plateform it is (iOS / Android ...)<br>
 We wanna symplify data management, processes like In App Purchase, iOS Notifications etc...
 
 We would like to eliminate writing code on the server side.

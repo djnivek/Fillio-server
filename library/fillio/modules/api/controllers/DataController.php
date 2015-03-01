@@ -19,9 +19,19 @@ class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
         $id = $this->getUrlParam("id");
         $classname = $this->getUrlParam("classname");
 
+        /** @var Fillio_Storage_Object $class */
         $class = "Model_".ucfirst($classname);
-        $obj = new $class($id);
-        $this->response->object = $obj->toString();
+
+        if (isset($id) && strlen($id) >= 1) {
+            /** @var Fillio_Storage_Object $obj */
+            $obj = new $class($id);
+            $this->response->objects = $obj->toArray();
+        } else {
+            $this->response->objects = $class::getAll();
+        }
+
+
+
 
         $this->response->message = "Hello world /$classname/$id/";
 

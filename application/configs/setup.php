@@ -30,11 +30,12 @@ Fillio_ServerLogic_Application::getInstance()->setVersionState("alpha");
 // 
 //  Initialisation d'une route
 //
-//Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/:id/", "/default/(classname)/get/(id)");
 /**
  *      Nouveauté -> les routes peuvent désormais pointer vers des controllers de librairies
  **/
-Fillio_ServerLogic_Application::getInstance()->addRoute("/api/:classname/:action/:id/", "/->fillio->api/data/(action)/");
+Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/:id/", "/->fillio->api/data/get/");
+Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/", "/->fillio->api/data/get/");
+//Fillio_ServerLogic_Application::getInstance()->addRoute("/api/:classname/:action/:id/", "/->fillio->api/data/(action)/");
 
 //
 //  Initilisation de la database de l'application

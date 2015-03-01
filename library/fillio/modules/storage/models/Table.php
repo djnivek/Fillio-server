@@ -87,6 +87,15 @@ class Fillio_Storage_Table {
     }
 
     /**
+     * @return Fillio_Storage_Table_Structure Structure de la table
+     */
+    public function getStructure()
+    {
+        return $this->_struct;
+    }
+
+
+    /**
      * Chargement des structures de la table
      */
     private function _setInnerPropsStruct()
@@ -114,10 +123,27 @@ class Fillio_Storage_Table {
     }
 
     /**
+     * Obtention de l'ensemble des objets de la table
+     * On peut passer des options ( 'condition', 'limit')
+     * @param array|null $options Tableau d'options
      * @return array Retourne un tableau
+     * @throws Fillio_ServerLogic_Exception
      */
-    public function getAll() {
+    public function getAll($options = null) {
         $request = $this->selectRequest()." WHERE 1";
+
+        if (!is_null($options) && isset($options["condition"])) {
+            $request .= " AND ".$options["condition"];
+        }
+
+        // [...] ajouter des conditions si vous le souhaitez
+
+        // cette condition doit être toujours à la fin (---> limit X)
+        if (!is_null($options) && isset($options["limit"])) {
+            // on supprime le mot 'limit' si jamais on l'a mis dans la condition
+            $request .= "limit ".(str_replace("limit", "", $options["limit"]));
+        }
+
         return $this->executeQuery($request);
     }
 

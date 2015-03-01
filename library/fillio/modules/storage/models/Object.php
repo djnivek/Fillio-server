@@ -15,23 +15,32 @@ require_once 'fillio/modules/storage/models/ObjectAbstract.php';
  */
 class Fillio_Storage_Object extends Fillio_Storage_Object_Abstract {
 
-    private $fields;
+    /**
+     * @var array Variables propre à l'objet
+     * Accès : Se fait grace au magic methods
+     * Ajout/Modification : Se fait grace à la méthode addField()
+     */
+    private $innerProps;
 
-    public function addField($key, $value) {
-        $this->fields[$key] = $value;
+    protected function addField($key, $value) {
+        $this->innerProps[$key] = $value;
     }
 
     public function __get($name)
     {
-        if (array_key_exists($name, $this->fields))
-            return $this->fields[$name];
+        if (array_key_exists($name, $this->innerProps))
+            return $this->innerProps[$name];
         else
             return null;
     }
 
     public function getFields()
     {
-        return $this->fields;
+        return $this->innerProps;
+    }
+
+    public function toArray() {
+        return $this->innerProps;
     }
 
 

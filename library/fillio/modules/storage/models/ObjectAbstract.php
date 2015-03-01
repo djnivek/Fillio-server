@@ -35,10 +35,16 @@ abstract class Fillio_Storage_Object_Abstract {
         }
     }
 
-    private function load() {
+    /**
+     * Chargement de l'objet et insertion de ses champs
+     * dans la variable $fields
+     */
+    protected function load() {
         $obj = $this->table->getObject($this->_id);
-        $this->name = $obj["name"];
-        print_r($this);die;
+
+        foreach ($this->table->getStructure()->getFieldKeys() as $field) {
+            $this->addField($field, $obj[$field]);
+        }
     }
 
     public static function getAllObject() {
@@ -55,15 +61,33 @@ abstract class Fillio_Storage_Object_Abstract {
         return $objs;
     }
 
-    public static function getAll() {
+    private static function getAndPerformToGetAll() {
         $class = get_called_class();
         $obj = new $class();
-        $obj->table = new Fillio_Storage_Table($class);
-        return $obj->table->getAll();
+        $obj->table = Fillio_Storage_Table::getInstance($class);
+        return $obj;
+    }
+
+    public static function getAll() {
+        return self::getAndPerformToGetAll()->table->getAll();
+    }
+
+    public static function findAll($condition) {
+        $options = array("condition" => $condition);
+        return self::getAndPerformToGetAll()->table->getAll($options);
     }
 
     private function save() {
         
     }
+
+    /**
+     * Ajoute un élément à l'objet (un attribut clé/valeur)
+     * On utilise cette méthode pour ajouter une variable propre à l'objet
+     * présent dans le BDD
+     * @param $key string clé de l'attribut
+     * @param $value string valeur de l'attribue
+     */
+    abstract protected function addField($key, $value);
 
 }
