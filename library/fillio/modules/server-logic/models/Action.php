@@ -117,11 +117,11 @@ abstract class Fillio_ServerLogic_Action {
         return $this->response->toString();
     }
 
-    protected function setLibraryRequired($arrayLibs) {
+    /*private function setLibraryRequired($arrayLibs) {
         foreach ($arrayLibs as $libName) {
             Fillio_ServerLogic_Library::load($libName);
         }
-    }
+    }*/
 
     public function _setModule($module) {
         $this->_module = $module;

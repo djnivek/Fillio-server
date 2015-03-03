@@ -12,7 +12,7 @@
  * @author kevinmachado
  */
 class Fillio {
-    
+
     /**
      * Démarre l'application et renvoi l'instance
      *  --------------

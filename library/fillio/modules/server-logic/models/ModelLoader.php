@@ -51,7 +51,7 @@ class Fillio_ServerLogic_ModelLoader extends Fillio_ServerLogic_Loader_Abstract 
      * @param $module string Nom du module dont on va charger les entités
      * @return bool Le model a bien été chargé
      */
-    public static function loadModelForModule($module = null) {
+    private static function loadModelForModule($module = null) {
         $directoryPath = Fillio_ServerLogic_ModelLoader::getPathModelDirectory($module);
         return Fillio_ServerLogic_ModelLoader::loadDirectoryPath($directoryPath);
     }

@@ -11,9 +11,7 @@
  *
  * @author kevinmachado
  */
-class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
-
-    protected function _requiredLibrary(){}
+class Fillio_Api_DataobjectController extends Fillio_Api_Action {
 
     public function getAction() {
         $id = $this->getUrlParam("id");
@@ -30,14 +28,14 @@ class Fillio_Api_DataController extends Fillio_ServerLogic_Action {
             $this->response->objects = $class::getAll();
         }
 
-
-
-
-        $this->response->message = "Hello world /$classname/$id/";
-
     }
 
     public function setAction() {
 
     }
+
+    /*protected function _requiredLibrary()
+    {
+        // TODO: Implement _requiredLibrary() method.
+    }*/
 }
