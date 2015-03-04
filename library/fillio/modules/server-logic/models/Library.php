@@ -49,6 +49,15 @@ class Fillio_ServerLogic_Library {
     }
 
     public static function loadLibrary($name = null, $module = null, $controller = null) {
+
+        /*spl_autoload_register(function ($class) {
+            echo "--->  spl_autoload_register $class";
+            require_once 'fillio/modules/server-logic/models/ModelLoader_Library.php';
+            Fillio_ServerLogic_ModelLoader_Library::loadModel($class);
+            if (!class_exists($class))
+                throw new Exception("Impossible de charger la classe $class");
+        });*/
+
         self::_getInstance()->_name = $name;
         self::_getInstance()->_module = $module;
         self::_getInstance()->_controller = $controller;
@@ -59,31 +68,30 @@ class Fillio_ServerLogic_Library {
         require_once 'fillio/modules/server-logic/models/LibLoader.php';
         if (!is_null($this->_name) && !is_null($this->_module) && !is_null($this->_controller)) {
             // charger le controller pour le module de la librarie donnée
-            //echo "<br>--> 1<br>";
             Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath() . "/models", true);
             Fillio_ServerLogic_LibLoader::loadFile($this->getPath() . "/controllers", $this->getFilename());
         } else if (!is_null($this->_name) && !is_null($this->_module)) {
             // charger le module de la librarie donnée
-            //echo "<br>--> 2".$this->getPath()."<br>";
-            Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath(), true);
+            //  chargement prioritaire pour les models
+            Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath() . "/models", true);
+            //  chargement des controllers
+            Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath() . "/controllers", true);
         } else if (!is_null($this->_name)) {
-            // charger toute la librairie donnée
-            //echo "<br>--> 3<br>";
-            Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath(), true);
+            // charger toute la librairie donnée (tout les modules)
+            /**
+             * Cette action est impossible car le chargement ne se ferait pas dans l'ordre (model puis controller) du coup un problème
+             * surviendrait puisque l'utilisateur le compilateur aurait des entitées non chargées.
+             *
+             * Il faut donc réaliser un auto-loader pour librairie ou bien un chargement par prioritée
+             */
+            throw new Fillio_ServerLogic_Exception("Il est pour l'instant impossible d'effectuer cette action, voir commentaire");
+            //Fillio_ServerLogic_LibLoader::loadDirectory($this->getPath(), true);
         } else {
             return false;
         }
     }
 
     private function getPath() {
-        //
-        //$libraryName = "Library_";
-        //$libraryName .= ucfirst(strtolower($this->_name)) . "_";
-        //$libraryName .= ucfirst(strtolower($this->_module)) . "_";
-        //$libraryName .= ucfirst(strtolower($this->_controller));
-        //
-        // chargement des fichiers
-
         $libraryPath = APPLICATION_PATH . "../library";
 
         if (!is_null($this->_name)) {
@@ -104,27 +112,6 @@ class Fillio_ServerLogic_Library {
             return null;
     }
 
-    /**
-     * @param string $libName
-     * @return mixed Instance du module
-     */
-    /* public static function getLibrary($libName) {
-      $libNameLower = strtolower($libName);
-
-      // cr�ation de l'instance de librarie
-      if (is_null(self::$instance[$libNameLower]))
-      $library = self::$instance[$libNameLower] = new Library($libNameLower);
-
-      // attribution du nom
-      $library->name = $libName;
-
-      //$module
-
-      return $library->module;
-      } */
-
-
-
     function setName($name) {
         $this->_name = $name;
     }
@@ -136,30 +123,4 @@ class Fillio_ServerLogic_Library {
     function setController($controller) {
         $this->_controller = $controller;
     }
-
-    /**
-     * Retourne le controller portant le m?me nom celui de la librairie
-     * @return mixed retourne le controller de la librarie
-     */
-    /* public function theController() {
-      $controller = $this->name . "Controller";
-      require_once $_SERVER['DOCUMENT_ROOT'] . "/library/fillio/modules/$this->name/controller/$controller";
-      if (!$this->theController)
-      $this->theController = new $controller();
-      return $this->theController;
-      } */
-
-    /* private function call($action) {
-      $actionLower = strtolower($action);
-      $actionName = $actionLower . "Action";
-      return $this->theController->$actionName();
-      } */
-
-    /**
-     * Execute le script principal de la librairie
-     * Le fichier index.php ? la racine de la librarie
-     */
-    /* public function execute() {
-      require $_SERVER['DOCUMENT_ROOT'] . "/library/fillio/modules/$this->name/index.php";
-      } */
 }

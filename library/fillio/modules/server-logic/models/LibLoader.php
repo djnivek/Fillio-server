@@ -16,11 +16,11 @@ require_once 'fillio/modules/server-logic/models/Loader_Abstract.php';
 class Fillio_ServerLogic_LibLoader extends Fillio_ServerLogic_Loader_Abstract {
 
     /**
-     * Permet de charger un r�pertoire entier, l'activation de $loadChild entraine le
-     * chargement des dossiers enfants. Par d�faut, l'option est active.
+     * Permet de charger un répertoire entier, l'activation de $loadChild entraine le
+     * chargement des dossiers enfants. Par défaut, l'option est active.
      * 
-     * @param string $path Chemin du r�pertoire ? charger
-     * @param boolean $loadChild Chargement des dossiers enfants (Activ�e par d�faut)
+     * @param string $path Chemin du répertoire à charger
+     * @param boolean $loadChild Chargement des dossiers enfants (Activée par défaut)
      * @return bool retourne false si échoué
      */
     public static function loadDirectory($path = "", $loadChild = true) {
