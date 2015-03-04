@@ -155,6 +155,36 @@ class Fillio_Storage_Table {
     }
 
     /**
+     * Retourne la requête sql permettant un insert via BindParams (prepare)
+     * Ex : 'INSERT INTO REGISTRY (name, value) VALUES (:name, :value)'
+     *
+     * La requête est construite à partir d'une liste de propriétés
+     * @param null|array $props Liste de propriétés (simplement les clées)
+     * @return string Requête sql
+     */
+    private function insertPreparedRequest($props = null) {
+        if (is_null($props))
+            return null;
+        $sql = "INSERT INTO $this->_name (";
+        foreach ($props as $prop) {
+            $sql .= "$prop,";
+        }
+        //  INSERT INTO REGISTRY (name,name2,
+        // on supprime la virgule à la fin s'il y en a une
+        $sql = rtrim($sql, ",");
+        $sql .= ") VALUES (";
+        //      INSERT INTO REGISTRY (name,name2) VALUES (
+        foreach ($props as $prop) {
+            $sql .= ":$prop,";
+        }
+        //  INSERT INTO REGISTRY (name,name2) VALUES (:name,:name2,
+        // on supprime la virgule à la fin s'il y en a une
+        $sql = rtrim($sql, ",");
+        $sql .= ")";
+        return $sql;
+    }
+
+    /**
      * @param $query string Paramètre de la requête à executer
      * @return mixed|null Résultat retourné par la requête
      * @throws Fillio_ServerLogic_Exception
@@ -166,6 +196,28 @@ class Fillio_Storage_Table {
         } else {
             return $statement->fetchAll();
         }
+    }
+
+    /**
+     * Sauvegarde des données dans la table
+     * @param $props array|null Tableau (clé/valeur) de propriétés à insérer
+     */
+    public function insert($props = null)
+    {
+        if (is_null($props))
+            return;
+        $sql = $this->insertPreparedRequest(array_keys($props));
+        $stmt = Fillio_Storage_Database::getInstance("main")->getDb()->prepare($sql);
+        $stmt->execute($props);
+    }
+
+    /**
+     * Mise à jour des données dans la table
+     * @param $props array tableau (clé/valeur) de propriétés à mettre à jour
+     */
+    public function update($props)
+    {
+
     }
 
 }

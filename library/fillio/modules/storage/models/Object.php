@@ -22,7 +22,18 @@ class Fillio_Storage_Object extends Fillio_Storage_Object_Abstract {
      */
     private $innerProps;
 
-    protected function addField($key, $value) {
+    /**
+     * Ajoute un élément à l'objet (un attribut clé/valeur)
+     * On utilise cette méthode pour ajouter une variable propre à l'objet
+     * présent dans le BDD
+     * @param $key string clé de l'attribut
+     * @param $value string valeur de l'attribue
+     */
+    protected function addProp($key, $value) {
+        $this->innerProps[$key] = $value;
+    }
+
+    public function __set($key, $value) {
         $this->innerProps[$key] = $value;
     }
 
@@ -34,13 +45,17 @@ class Fillio_Storage_Object extends Fillio_Storage_Object_Abstract {
             return null;
     }
 
-    public function getFields()
+    public function getProps()
     {
         return $this->innerProps;
     }
 
     public function toArray() {
         return $this->innerProps;
+    }
+
+    public function save() {
+        $this->_save();
     }
 
 

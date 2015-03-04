@@ -35,6 +35,11 @@ class IndexController extends Fillio_ServerLogic_Action {
     }
 
     public function apiAction() {
+        $kevin = new Model_User();
+        $kevin->name = "Estelle";
+        $kevin->mail = "estelle@gmail.com";
+        $kevin->actif = "1";
+        $kevin->save();
         $this->response->users = Model_User::getAll();
     }
 
