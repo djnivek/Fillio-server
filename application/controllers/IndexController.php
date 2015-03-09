@@ -14,11 +14,16 @@
 class IndexController extends Fillio_ServerLogic_Action {
 
     protected function _requiredLibrary() {
-        //$this->setLibrary("notification");
+        $this->setLibrary("fillio", "media");
     }
 
     public function init() {
         
+    }
+
+    public function uploadimageAction() {
+        $image = Fillio_Media_OutputImage::getImage("kevinmachado");
+        $this->response->status = $image->moveToFolderPath("/Applications/MAMP/tmp/php/uploads/");
     }
 
     public function indexAction() {
@@ -37,8 +42,9 @@ class IndexController extends Fillio_ServerLogic_Action {
     public function apiAction() {
         $kevin = new Model_User();
         $kevin->name = "Estelle";
-        $kevin->mail = "estelle@gmail.com";
-        $kevin->actif = "1";
+        $kevin->mail = "test@gmail.com";
+        $kevin->actif = true;
+        $kevin->dateCreation = date('Y-m-d H:i:s', strtotime("-4 days"));
         $kevin->save();
         $this->response->users = Model_User::getAll();
     }

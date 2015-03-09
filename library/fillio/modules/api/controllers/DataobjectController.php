@@ -27,15 +27,14 @@ class Fillio_Api_DataobjectController extends Fillio_Api_Action {
         } else {
             $this->response->objects = $class::getAll();
         }
-
     }
 
     public function setAction() {
-
+        $id = $this->getUrlParam("id");
+        $classname = $this->getUrlParam("classname");
     }
 
-    /*protected function _requiredLibrary()
-    {
-        // TODO: Implement _requiredLibrary() method.
-    }*/
+    public function putAction() {
+        $classname = $this->getUrlParam("classname");
+    }
 }
