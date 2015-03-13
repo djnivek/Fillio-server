@@ -1,9 +1,9 @@
 __This project is not available. It's under development, I need more time to provide you a stable environment__<br>
 _But .... I'm working for every days for your best pleasure !_ ;)
 
-# Fill.io Framework [Server Side]
-
 [![Stories in Ready](https://badge.waffle.io/djnivek/Fillio-server.svg?label=ready&title=Ready)](http://waffle.io/djnivek/Fillio-server)
+
+# Fill.io Framework [Server Side]
 
 This is the server side of Fill.io Framework based on an MVC architecture and PHP 5.4+
 
