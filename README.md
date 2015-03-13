@@ -1,8 +1,6 @@
 __This project is not available. It's under development, I need more time to provide you a stable environment__<br>
 _But .... I'm working for every days for your best pleasure !_ ;)
 
-[![Stories in Ready](https://badge.waffle.io/djnivek/Fillio-server.svg?label=ready&title=Ready)](http://waffle.io/djnivek/Fillio-server)
-
 # Fill.io Framework [Server Side]
 
 This is the server side of Fill.io Framework based on an MVC architecture and PHP 5.4+
@@ -38,6 +36,7 @@ We are working on ! You will be able to add and download libraries made by our c
 * If you __found a bug__, and can provide steps to reliably reproduce it, open an issue.
 * If you want to __add library__, you will submit in a little while.
 * If you want to __contribute__, submit a pull request.
+* Also, you can add issues and see progression here [![Stories in Ready](https://badge.waffle.io/djnivek/Fillio-server.svg?label=ready&title=Ready)](http://waffle.io/djnivek/Fillio-server)
 
 # Licence
 
