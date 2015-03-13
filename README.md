@@ -3,9 +3,11 @@ _But .... I'm working for every days for your best pleasure !_ ;)
 
 # Fill.io Framework [Server Side]
 
+[![Stories in Ready](https://badge.waffle.io/djnivek/Fillio-server.svg?label=ready&title=Ready)](http://waffle.io/djnivek/Fillio-server)
+
 This is the server side of Fill.io Framework based on an MVC architecture and PHP 5.4+
 
-## WTF is Fill.io ?
+## WT# is Fill.io ?
 
 This is a wonderful framework based on multiple languages. It provides a fully backend solution for your applications.
 
