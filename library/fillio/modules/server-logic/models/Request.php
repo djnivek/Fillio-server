@@ -89,8 +89,10 @@ class Fillio_ServerLogic_Request {
     public static function getParam($key) {
         $instance = self::getInstance();
         $value = null;
-        if (filter_input(INPUT_REQUEST, $key) !== null) {
-            $value = filter_input(INPUT_REQUEST, $key);
+        if (filter_input(INPUT_GET, $key) !== null) {
+            $value = filter_input(INPUT_GET, $key);
+        } else if (filter_input(INPUT_POST, $key) !== null) {
+            $value = filter_input(INPUT_POST, $key);
         } else if (array_key_exists($key, $instance->_params)) {
             $value = $instance->_params[$key];
         }
@@ -120,9 +122,7 @@ class Fillio_ServerLogic_Request {
     public static function getUrlParam($key) {
         $instance = self::getInstance();
         $value = null;
-        if (filter_input(INPUT_REQUEST, $key) !== null) {
-            $value = filter_input(INPUT_REQUEST, $key);
-        } else if (array_key_exists($key, $instance->_urlParams)) {
+        if (array_key_exists($key, $instance->_urlParams)) {
             $value = $instance->_urlParams[$key];
         }
         return $value;
