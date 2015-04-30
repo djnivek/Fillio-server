@@ -37,7 +37,7 @@ Fillio_ServerLogic_Application::getInstance()->addRoute("/class/:classname/",   
 //
 //  Initilisation de la database de l'application
 //
-Fillio_Storage_Database::getInstance("main")->setCredential("localhost", "8889", "test-fillio", "root", "root");
+//Fillio_Storage_Database::getInstance("main")->setCredential("localhost", "8889", "test-fillio", "root", "root");
 
 //
 //  Initilisation de la database pour Core Fillio

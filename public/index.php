@@ -13,8 +13,8 @@ else
  */
 $applicationIdentifier = $_POST['application_identifier'];
 
-define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");   //  Macbook Pro
-//define("APPLICATION_PATH", "/Users/kevinmachado/PhpstormProjects/fillio-sandbox/application/");           //  iMac
+//define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");   //  Macbook Pro
+define("APPLICATION_PATH", '/Users/kevinmachado/Documents/Mes documents/Developpement/13_Perso/01_PHP/Fillio-server/application/'); //  iMac
 
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library/')

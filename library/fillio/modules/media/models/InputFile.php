@@ -3,21 +3,21 @@
  * Created by PhpStorm.
  * User: kevinmachado
  * Date: 03/03/2015
- * Time: 19:26
+ * Time: 19:24
  */
 
-class Fillio_Media_OutputImage extends Fillio_Media_OutputFile {
+class Fillio_Media_InputFile {
 
     /**
-     * @var
+     * @var string The name of the file
      */
     public $name;
     /**
-     * @var
+     * @var string The file path
      */
     public $path;
     /**
-     * @var
+     * @var float The file size in bytes
      */
     public $size;
 
@@ -38,7 +38,7 @@ class Fillio_Media_OutputImage extends Fillio_Media_OutputFile {
     }
 
     public function moveToFolderPath($path) {
-        $uploadfile = $path . $this->name;
-        return move_uploaded_file($this->path, $uploadfile);
+        $uploadedFile = $path . $this->name;
+        return move_uploaded_file($this->path, $uploadedFile);
     }
 }

@@ -12,8 +12,8 @@ class UploadController extends Fillio_ServerLogic_Action{
         $this->setLibrary("fillio", "media");
     }
 
-    public function imageAction() {
-        $image = Fillio_Media_OutputImage::getImage("name");
+    public function fileAction() {
+        $image = Fillio_Media_InputFactory::getFile("fillio_folder");
         $this->response->status = $image->moveToFolderPath("/Applications/MAMP/tmp/php/uploads");
     }
 }
