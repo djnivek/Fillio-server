@@ -13,8 +13,7 @@ else
  */
 $applicationIdentifier = $_POST['application_identifier'];
 
-//define("APPLICATION_PATH", "/Users/kevinmachado/Documents/Developpement/Projets/YCDI_Beta/application/");   //  Macbook Pro
-define("APPLICATION_PATH", '/Users/kevinmachado/Documents/Mes documents/Developpement/13_Perso/01_PHP/Fillio-server/application/'); //  iMac
+define("APPLICATION_PATH", '/Users/kevinmachado/Documents/Developpement/Projets/R&D/SimpleFood/Fillio-server/application/'); //  Macbook Pro Nouveal
 
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library/')

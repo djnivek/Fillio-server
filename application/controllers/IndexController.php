@@ -18,7 +18,7 @@ class IndexController extends Fillio_ServerLogic_Action {
     }
 
     public function init() {
-        
+
     }
 
     public function uploadimageAction() {
@@ -40,13 +40,13 @@ class IndexController extends Fillio_ServerLogic_Action {
     }
 
     public function apiAction() {
-        $kevin = new Model_User();
-        $kevin->name = "Estelle";
-        $kevin->mail = "test@gmail.com";
-        $kevin->actif = true;
-        $kevin->dateCreation = date('Y-m-d H:i:s', strtotime("-4 days"));
+        $kevin = new Model_User(2);
+        $kevin->name = "AHHAHAHAHHA";
+        $kevin->mail = "jessy.machado@gmail.com";
+        $kevin->actif = false;
+        //$kevin->dateCreation = date('Y-m-d H:i:s', strtotime("-8 days"));
         $kevin->save();
-        $this->response->users = Model_User::getAll();
+        $this->response->users = Model_User::getAllActif();
     }
 
     public function testmoiAction(){

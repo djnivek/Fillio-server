@@ -185,17 +185,44 @@ class Fillio_Storage_Table {
     }
 
     /**
+     * Retourne la requête sql permettant un update via BindParams (prepare)
+     * Ex : 'INSERT INTO REGISTRY (name, value) VALUES (:name, :value)'
+     *
+     * La requête est construite à partir d'une liste de propriétés
+     * @param null|array $props Liste de propriétés (simplement les clées)
+     * @return string Requête sql
+     */
+    private function updatePreparedRequest($props = null) {
+        if (is_null($props))
+            return null;
+        $sql = "UPDATE $this->_name SET ";
+        foreach ($props as $prop) {
+            $sql .= "$prop = :$prop,";
+        }
+        //  UPDATE user SET name=:name,name2=:name2,
+        // on supprime la virgule à la fin s'il y en a une
+        $sql = rtrim($sql, ",");
+        //  UPDATE user SET name=:name,name2=:name2
+        $sql .= " WHERE ".$this->_primaryKeyField." = :".$this->_primaryKeyField;
+        //  UPDATE user SET (name=:name,name2=:name2) WHERE primarykey = 234
+        return $sql;
+    }
+
+    /**
      * @param $query string Paramètre de la requête à executer
      * @return mixed|null Résultat retourné par la requête
      * @throws Fillio_ServerLogic_Exception
      */
     private function executeQuery($query) {
-        $statement = Fillio_Storage_Database::getInstance("main")->getDb()->query($query, PDO::FETCH_ASSOC);
-        if ($statement === false) {
-            throw new Fillio_ServerLogic_Exception("Erreur pendant la requête '$query''");
-        } else {
-            return $statement->fetchAll();
-        }
+      if (is_null(Fillio_Storage_Database::getInstance("main"))) {
+        throw new Fillio_ServerLogic_Exception("Storage Database is null, please correct this problem and try again");
+      }
+      $statement = Fillio_Storage_Database::getInstance("main")->getDb()->query($query, PDO::FETCH_ASSOC);
+      if ($statement === false) {
+        throw new Fillio_ServerLogic_Exception("Erreur pendant la requête '$query''");
+      } else {
+        return $statement->fetchAll();
+      }
     }
 
     /**
@@ -217,7 +244,11 @@ class Fillio_Storage_Table {
      */
     public function update($props)
     {
-
+          if (is_null($props))
+              return;
+          $sql = $this->updatePreparedRequest(array_keys($props));
+          $stmt = Fillio_Storage_Database::getInstance("main")->getDb()->prepare($sql);
+          $stmt->execute($props);
     }
 
 }

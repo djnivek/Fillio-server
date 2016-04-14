@@ -48,7 +48,7 @@ class Fillio_Storage_Database {
      *
      */
     private function __construct() {
-        
+
     }
 
     /**

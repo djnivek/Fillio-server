@@ -23,7 +23,7 @@ class Fillio_ServerLogic_FrontController {
     protected $controller;
 
     public function __construct() {
-        
+
     }
 
     /**
@@ -33,7 +33,6 @@ class Fillio_ServerLogic_FrontController {
     public function execute() {
         $this->loadFiles();
         $this->dispatch();
-
         if ($this->controller->isRenderViewEnabled())
             return $this->controller->getView();
         else

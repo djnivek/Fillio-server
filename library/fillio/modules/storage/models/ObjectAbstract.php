@@ -106,8 +106,6 @@ abstract class Fillio_Storage_Object_Abstract {
         } else {
             $this->table->insert($props);
         }
-
-
     }
 
     /**
